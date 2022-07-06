@@ -1,6 +1,6 @@
 <template>
 	<div id="app">
-		<div class="container mx-auto px-20">
+		<div class="container mx-auto px-15">
 			<SliderPage @backgroundChange="changeBgColor" />
 		</div>
 	</div>

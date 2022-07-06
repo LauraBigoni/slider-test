@@ -1,25 +1,24 @@
 <template>
 	<div class="slider h-screen flex flex-col justify-center">
 		<div class="pb-10 w-full flex justify-between">
-			<h1 class="text-4xl pb-10 font-bold">Section Cards</h1>
+			<h1 class="text-4xl pb-10 pl-20 font-bold">Section Cards</h1>
 			<div class="input-container flex justify-end gap-20">
-				<div class="flex items-center basis-1/2">
+				<div class="flex items-center basis-1/2 py-3">
 					<label for="cards-range">Number of cards:</label>
 					<input
 						type="range"
-						value="4"
 						min="0"
-						max="20"
+						max="15"
 						step="1"
 						name="cards-range"
 						id="cards-range"
 						class="mx-3"
-						@change="getValue()"
+						v-model.number="value"
 					/>
-					<output>{{ this.value }}</output>
+					<output v-text="value"></output>
 				</div>
 
-				<div class="flex items-center basis-1/2">
+				<div class="flex items-center basis-1/2 py-3">
 					<label for="color-picker" class="pr-4">Background color:</label>
 					<input
 						type="color"
@@ -31,45 +30,33 @@
 				</div>
 			</div>
 		</div>
-		<div class="flex gap-10 items-center">
-			<p>
-				Lorem ipsum dolor, sit amet consectetur adipisicing elit. Provident,
-				deserunt facere ipsa cupiditate necessitatibus nobis ducimus vel
-				assumenda, fugiat rerum aspernatur mollitia amet voluptatibus voluptas?
-				Sit qui culpa
-			</p>
-			<p>
-				Lorem ipsum dolor, sit amet consectetur adipisicing elit. Provident,
-				deserunt facere ipsa cupiditate necessitatibus nobis ducimus vel
-				assumenda, fugiat rerum aspernatur mollitia amet voluptatibus voluptas?
-				Sit qui culpa
-			</p>
-			<p>
-				Lorem ipsum dolor, sit amet consectetur adipisicing elit. Provident,
-				deserunt facere ipsa cupiditate necessitatibus nobis ducimus vel
-				assumenda, fugiat rerum aspernatur mollitia amet voluptatibus voluptas?
-				Sit qui culpa
-			</p>
+		<div class="slider-card flex flex-row gap-14 justify-center">
+			<SliderCard v-for="index in value" :key="index" />
+		</div>
+		<div class="navigation-slider">
+			<i class="fa-solid fa-arrow-left prev"></i>
+			<i class="fa-solid fa-arrow-right next"></i>
+			<div class="dots text-center">
+				<i v-for="i in 4" :key="i" class="fa-solid fa-circle"></i>
+			</div>
 		</div>
 	</div>
 </template>
 
 <script>
+import SliderCard from "@/components/SliderCard";
+
 export default {
 	name: "SliderPage",
+	components: { SliderCard },
 	data() {
 		return {
-			value: 4,
+			value: 3,
 		};
 	},
+	computed: {},
 	methods: {
-		getValue: function () {
-			const rangeControl = document.querySelector('input[type="range"]');
-			this.value = rangeControl.value;
-			console.log(rangeControl);
-			console.log(this.value);
-		},
-		setColor: function () {
+		setColor() {
 			let colorPicker = document.getElementById("color-picker");
 			colorPicker.style.setProperty("--color", colorPicker.value);
 			this.$emit("backgroundChange", colorPicker.value);
@@ -99,7 +86,7 @@ export default {
 		height: 24px;
 		background: var(--color);
 		border-radius: 20px;
-		border: 1px solid #fff;
+		border: 2px solid rgba(255, 255, 255, 0.7);
 	}
 
 	input[type="range"] {
@@ -163,6 +150,26 @@ export default {
 	input[type="range"]::-webkit-slider-runnable-track {
 		background: linear-gradient(var(--track-color) 0 0) scroll no-repeat center /
 			100% calc(var(--track-height) + 1px);
+	}
+}
+.navigation-slider {
+	.fa-arrow-left {
+		font-size: 40px;
+		position: absolute;
+		top: 50%;
+		left: 8%;
+	}
+	.fa-arrow-right {
+		font-size: 40px;
+		position: absolute;
+		top: 50%;
+		right: 8%;
+	}
+	.dots {
+		padding-top: 100px;
+		i {
+			margin: 0 10px;
+		}
 	}
 }
 </style>
