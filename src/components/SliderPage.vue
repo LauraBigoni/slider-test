@@ -30,12 +30,15 @@
 				</div>
 			</div>
 		</div>
-		<div class="slider-card flex flex-row gap-14 justify-center">
-			<SliderCard
-				v-for="(item, index) in value"
-				:key="item"
-				:class="{ active: activeCards(index) }"
-			/>
+		<div class="container-slider flex items-center">
+			<div class="slider-cards flex flex-row gap-14 justify-center">
+				<SliderCard
+					class="ease-in duration-300 card"
+					v-for="(item, index) in value"
+					:key="item"
+					:class="{ active: activeCards(index) }"
+				/>
+			</div>
 		</div>
 		<div class="navigation-slider">
 			<i
@@ -69,7 +72,7 @@ export default {
 		return {
 			value: 3,
 			currentIndex: 0,
-			maxValue: 4,
+			leftPosition: 0,
 		};
 	},
 	computed: {},
@@ -86,11 +89,11 @@ export default {
 			this.currentIndex = index;
 		},
 		prevCard() {
-			if (this.currentIndex === 0) this.currentIndex = this.maxValue - 1;
+			if (this.currentIndex === 0) this.currentIndex = this.value - 1;
 			else this.currentIndex--;
 		},
 		nextCard() {
-			if (this.currentIndex === this.maxValue - 1) this.currentIndex = 0;
+			if (this.currentIndex === this.value - 1) this.currentIndex = 0;
 			else this.currentIndex++;
 		},
 	},
@@ -186,13 +189,31 @@ export default {
 			100% calc(var(--track-height) + 1px);
 	}
 }
-.navigation-slider {
-	// TODO: Decidere se scrollare all'infinito le card o mettere disabled
-	// & > i.disabled {
-	// 	cursor: not-allowed;
-	// 	color: #b3b3b39d;
-	// }
 
+.container-slider {
+	height: 500px;
+	overflow: hidden;
+
+	.slider-cards {
+		padding-left: 100px;
+
+		.card {
+			min-width: 300px;
+		}
+	}
+}
+
+.slider-cards > div {
+	max-height: 500px;
+	&.active {
+		transform: scale(1.3);
+	}
+	&:nth-child(4) {
+		opacity: 0.5;
+	}
+}
+
+.navigation-slider {
 	.fa-arrow-left {
 		font-size: 40px;
 		position: absolute;
@@ -227,10 +248,11 @@ export default {
 
 			&.active {
 				color: #000;
+				transform: scale(1.3);
 			}
 
 			&:hover {
-				transform: scale(1.2);
+				transform: scale(1.3);
 			}
 		}
 	}
