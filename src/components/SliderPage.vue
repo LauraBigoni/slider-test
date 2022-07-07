@@ -8,7 +8,7 @@
 					<input
 						type="range"
 						min="0"
-						max="15"
+						max="4"
 						step="1"
 						name="cards-range"
 						id="cards-range"
@@ -31,13 +31,29 @@
 			</div>
 		</div>
 		<div class="slider-card flex flex-row gap-14 justify-center">
-			<SliderCard v-for="index in value" :key="index" />
+			<SliderCard
+				v-for="(item, index) in value"
+				:key="item"
+				:class="{ active: activeCards(index) }"
+			/>
 		</div>
 		<div class="navigation-slider">
-			<i class="fa-solid fa-arrow-left prev"></i>
-			<i class="fa-solid fa-arrow-right next"></i>
+			<i
+				@click="prevCard()"
+				class="fa-solid fa-arrow-left prev ease-in duration-300 disabled"
+			></i>
+			<i
+				@click="nextCard()"
+				class="fa-solid fa-arrow-right next ease-in duration-300"
+			></i>
 			<div class="dots text-center">
-				<i v-for="i in 4" :key="i" class="fa-solid fa-circle"></i>
+				<i
+					v-for="(icon, index) in value"
+					:key="icon"
+					class="fa-solid fa-circle"
+					:class="{ active: activeCards(index) }"
+					@click="setCards(index)"
+				></i>
 			</div>
 		</div>
 	</div>
@@ -52,6 +68,8 @@ export default {
 	data() {
 		return {
 			value: 3,
+			currentIndex: 0,
+			maxValue: 4,
 		};
 	},
 	computed: {},
@@ -61,7 +79,22 @@ export default {
 			colorPicker.style.setProperty("--color", colorPicker.value);
 			this.$emit("backgroundChange", colorPicker.value);
 		},
+		activeCards(index) {
+			return this.currentIndex === index;
+		},
+		setCards(index) {
+			this.currentIndex = index;
+		},
+		prevCard() {
+			if (this.currentIndex === 0) this.currentIndex = this.maxValue - 1;
+			else this.currentIndex--;
+		},
+		nextCard() {
+			if (this.currentIndex === this.maxValue - 1) this.currentIndex = 0;
+			else this.currentIndex++;
+		},
 	},
+	mounted() {},
 };
 </script>
 
@@ -73,6 +106,7 @@ export default {
 		width: 30px;
 		height: 14px;
 		position: relative;
+		cursor: crosshair;
 	}
 
 	#color-picker::before {
@@ -153,22 +187,51 @@ export default {
 	}
 }
 .navigation-slider {
+	// TODO: Decidere se scrollare all'infinito le card o mettere disabled
+	// & > i.disabled {
+	// 	cursor: not-allowed;
+	// 	color: #b3b3b39d;
+	// }
+
 	.fa-arrow-left {
 		font-size: 40px;
 		position: absolute;
 		top: 50%;
-		left: 8%;
+		left: 6%;
+		cursor: pointer;
+
+		&:hover {
+			transform: translateX(-10px);
+		}
 	}
+
 	.fa-arrow-right {
 		font-size: 40px;
 		position: absolute;
 		top: 50%;
-		right: 8%;
+		right: 6%;
+		cursor: pointer;
+
+		&:hover {
+			transform: translateX(10px);
+		}
 	}
+
 	.dots {
 		padding-top: 100px;
+
 		i {
 			margin: 0 10px;
+			cursor: pointer;
+			color: #b3b3b39d;
+
+			&.active {
+				color: #000;
+			}
+
+			&:hover {
+				transform: scale(1.2);
+			}
 		}
 	}
 }
