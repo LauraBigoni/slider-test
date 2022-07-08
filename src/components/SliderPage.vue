@@ -8,7 +8,7 @@
 					<input
 						type="range"
 						min="0"
-						max="4"
+						max="42"
 						step="1"
 						name="cards-range"
 						id="cards-range"
@@ -30,13 +30,14 @@
 				</div>
 			</div>
 		</div>
-		<div class="container-slider flex items-center">
+		<div class="container-slider flex items-center justify-center">
 			<div class="slider-cards flex flex-row gap-14 justify-center">
 				<SliderCard
 					class="ease-in duration-300 card"
 					v-for="(item, index) in value"
-					:key="item"
+					:key="index"
 					:class="{ active: activeCards(index) }"
+					:item="item"
 				/>
 			</div>
 		</div>
@@ -52,7 +53,7 @@
 			<div class="dots text-center">
 				<i
 					v-for="(icon, index) in value"
-					:key="icon"
+					:key="index"
 					class="fa-solid fa-circle"
 					:class="{ active: activeCards(index) }"
 					@click="setCards(index)"
@@ -68,11 +69,13 @@ import SliderCard from "@/components/SliderCard";
 export default {
 	name: "SliderPage",
 	components: { SliderCard },
+
 	data() {
 		return {
-			value: 3,
+			value: 4,
 			currentIndex: 0,
-			leftPosition: 0,
+			marginLeft: 0,
+			marginRight: 0,
 		};
 	},
 	computed: {},
@@ -89,12 +92,38 @@ export default {
 			this.currentIndex = index;
 		},
 		prevCard() {
-			if (this.currentIndex === 0) this.currentIndex = this.value - 1;
-			else this.currentIndex--;
+			const cards = document.querySelector(".slider-cards");
+
+			if (this.currentIndex == 0) {
+				this.currentIndex = this.value - 1;
+
+				this.marginRight = 0;
+				cards.style.marginRight = this.marginRight + "px";
+				console.log(getComputedStyle(cards).marginRight);
+			} else {
+				this.currentIndex--;
+
+				this.marginRight -= 300;
+				cards.style.marginRight = this.marginRight + "px";
+				console.log(getComputedStyle(cards).marginRight);
+			}
 		},
 		nextCard() {
-			if (this.currentIndex === this.value - 1) this.currentIndex = 0;
-			else this.currentIndex++;
+			const cards = document.querySelector(".slider-cards");
+
+			if (this.currentIndex == this.value - 1) {
+				this.currentIndex = 0;
+
+				this.marginLeft = 0;
+				cards.style.marginLeft = this.marginLeft + "px";
+				console.log(getComputedStyle(cards).marginLeft);
+			} else {
+				this.currentIndex++;
+
+				this.marginLeft -= 300;
+				cards.style.marginLeft = this.marginLeft + "px";
+				console.log(getComputedStyle(cards).marginLeft);
+			}
 		},
 	},
 	mounted() {},
@@ -191,20 +220,23 @@ export default {
 }
 
 .container-slider {
-	height: 500px;
+	height: 600px;
 	overflow: hidden;
 
 	.slider-cards {
-		padding-left: 100px;
+		width: 100%;
 
 		.card {
-			min-width: 300px;
+			width: 300px;
+			height: 500px;
 		}
 	}
 }
 
 .slider-cards > div {
-	max-height: 500px;
+	max-height: 450px;
+	width: 300px;
+
 	&.active {
 		transform: scale(1.3);
 	}

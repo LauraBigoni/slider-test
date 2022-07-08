@@ -1,7 +1,7 @@
 <template>
 	<div
 		class="
-			w-1/4
+			w-50
 			p-6
 			rounded-3xl
 			shadow-lg
@@ -19,6 +19,8 @@
 		/>
 		<h5 class="text-gray-900 text-xl leading-tight font-medium mb-2">
 			A really very long long long card title to test
+			<br />
+			{{ item }}
 		</h5>
 		<p class="text-gray-500 text-base mb-4">
 			Some quick example text to build on the card title and make up the bulk of
@@ -48,5 +50,6 @@
 <script>
 export default {
 	name: "SliderCard",
+	props: ["item"],
 };
 </script>
