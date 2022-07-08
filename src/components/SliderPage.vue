@@ -30,8 +30,8 @@
 				</div>
 			</div>
 		</div>
-		<div class="container-slider flex items-center justify-center">
-			<div class="slider-cards flex flex-row gap-14 justify-center">
+		<div class="container-slider flex items-center">
+			<div class="slider-cards flex flex-row gap-14">
 				<SliderCard
 					class="ease-in duration-300 card"
 					v-for="(item, index) in value"
@@ -72,10 +72,9 @@ export default {
 
 	data() {
 		return {
-			value: 4,
+			value: 20,
 			currentIndex: 0,
 			marginLeft: 0,
-			marginRight: 0,
 		};
 	},
 	computed: {},
@@ -92,24 +91,19 @@ export default {
 			this.currentIndex = index;
 		},
 		prevCard() {
-			const cards = document.querySelector(".slider-cards");
-
+			const cards = document.querySelector(".container-slider");
 			if (this.currentIndex == 0) {
-				this.currentIndex = this.value - 1;
-
-				this.marginRight = 0;
-				cards.style.marginRight = this.marginRight + "px";
-				console.log(getComputedStyle(cards).marginRight);
+				return;
 			} else {
 				this.currentIndex--;
 
-				this.marginRight -= 300;
-				cards.style.marginRight = this.marginRight + "px";
-				console.log(getComputedStyle(cards).marginRight);
+				this.marginLeft += 300;
+				cards.style.marginLeft = this.marginLeft + "px";
+				console.log(getComputedStyle(cards).marginLeft);
 			}
 		},
 		nextCard() {
-			const cards = document.querySelector(".slider-cards");
+			const cards = document.querySelector(".container-slider");
 
 			if (this.currentIndex == this.value - 1) {
 				this.currentIndex = 0;
@@ -224,11 +218,9 @@ export default {
 	overflow: hidden;
 
 	.slider-cards {
-		width: 100%;
-
 		.card {
 			width: 300px;
-			height: 500px;
+			height: 400px;
 		}
 	}
 }
