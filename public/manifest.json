@@ -1,0 +1,15 @@
+{
+  "name": "Slider",
+  "short_name": "Slider App",
+  "theme_color": "#991111",
+  "icons": [
+    {
+      "src": "./img/icon.png",
+      "sizes": "150x150",
+      "type": "image/png"
+    }
+  ],
+  "start_url": ".",
+  "display": "fullscreen",
+  "background_color": "#000000"
+}
