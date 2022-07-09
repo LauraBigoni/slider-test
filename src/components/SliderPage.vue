@@ -65,14 +65,16 @@
 				</div>
 			</div>
 		</div>
-		<div class="slider-cards flex flex-row gap-14 items-center justify-start">
+		<div class="flex justify-center">
+		<div class="slider-cards flex flex-row items-center justify-start">
 			<SliderCard
-				class="ease-in duration-300 card shrink-0"
+				class="w-60 h-80 ease-in duration-300 card shrink-0"
 				v-for="(item, index) in value"
 				:key="index"
 				:class="{ active: activeCards(index) }"
 				:item="item"
 			/>
+		</div>
 		</div>
 		<div class="navigation-slider">
 			<i
@@ -136,7 +138,7 @@ export default {
 
 	data() {
 		return {
-			value: 15,
+			value: 3,
 			currentIndex: 0,
 		};
 	},
@@ -156,12 +158,12 @@ export default {
 
 			if (this.currentIndex < 2) {
 				cards.scrollLeft = index;
-			} else cards.scrollLeft = index * 320;
+			} else cards.scrollLeft = index * 300;
 		},
 		prevCard() {
 			const cards = document.querySelector(".slider-cards");
 			const lastCard = document.querySelector(
-				`.slider-cards div:nth-child(${this.currentIndex + 3}n)`
+				`.slider-cards div:nth-child(${this.currentIndex + 2}n)`
 			);
 			const prevCard = document.querySelector(
 				`.slider-cards div:nth-child(${this.currentIndex + 1}n)`
@@ -173,7 +175,7 @@ export default {
 				this.currentIndex--;
 
 				if (this.currentIndex < this.value - 3) {
-					cards.scrollLeft -= 600;
+					cards.scrollLeft -= 350;
 				}
 
 				if (this.currentIndex > 0) {
@@ -196,10 +198,10 @@ export default {
 			} else {
 				this.currentIndex++;
 				if (this.currentIndex > 2) {
-					cards.scrollLeft += 400;
+					cards.scrollLeft += 350;
 				}
 
-				if (this.currentIndex < this.value - 2) {
+				if (this.currentIndex < this.value - 1) {
 					lastCard.style.opacity = "0.5";
 					prevCard.style.opacity = "1";
 				}
@@ -212,7 +214,8 @@ export default {
 
 <style lang="scss" scoped>
 .slider {
-	width: 100vw;
+	width: 90vw;
+	margin: 0 auto;
 	touch-action: auto;
 
 	.input-container {
@@ -307,17 +310,13 @@ export default {
 
 	.slider-cards {
 		overflow: hidden;
-		height: 550px;
-		margin-right: -70px;
+		height: 500px;
+		margin: 0;
 		scroll-behavior: smooth;
 
-		& > div {
-			height: 400px;
-			width: 300px;
-
-			&.active {
-				transform: scale(1.2);
-			}
+		& > div.active {
+			transform: scale(1.1);
+			opacity: 1 !important;
 		}
 	}
 

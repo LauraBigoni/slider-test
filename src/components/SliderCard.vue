@@ -1,7 +1,7 @@
 <template>
 	<div
 		class="
-			p-6
+			p-6 mx-10
 			rounded-3xl
 			shadow-lg
 			bg-white
@@ -16,11 +16,11 @@
 			src="https://random.imagecdn.app/150/150"
 			alt="Bonnie image"
 		/>
-		<h5 class="text-gray-900 text-xl leading-tight font-medium mb-2">
+		<h2 class="text-gray-900 text-xl leading-tight font-medium mb-2">
 			A very long long card title to test
 			{{ item }}
-		</h5>
-		<p class="text-gray-500 text-base mb-4">
+		</h2>
+		<p class="text-gray-500 text-sm mb-4">
 			Some quick example text to build on the card title and make up the bulk of
 			the card's content.
 		</p>
