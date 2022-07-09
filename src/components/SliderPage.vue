@@ -42,11 +42,15 @@
 		<div class="navigation-slider">
 			<i
 				@click="prevCard()"
-				class="fa-solid fa-arrow-left prev ease-in duration-300 disabled"
+				class="fa-solid fa-arrow-left prev ease-in duration-300"
+				:class="{ 'opacity-50 transition-none': currentIndex == 0 }"
 			></i>
 			<i
 				@click="nextCard()"
 				class="fa-solid fa-arrow-right next ease-in duration-300"
+				:class="{
+					'opacity-50 transition-none': currentIndex == this.value - 1,
+				}"
 			></i>
 			<div class="dots text-center">
 				<i
@@ -264,7 +268,7 @@ export default {
 			left: 6%;
 			cursor: pointer;
 
-			&:hover {
+			&:not(.transition-none):hover {
 				transform: translateX(-10px);
 			}
 		}
@@ -276,7 +280,7 @@ export default {
 			right: 6%;
 			cursor: pointer;
 
-			&:hover {
+			&:not(.transition-none):hover {
 				transform: translateX(10px);
 			}
 		}
@@ -291,11 +295,18 @@ export default {
 
 				&.active {
 					color: #000;
-					transform: scale(1.3);
+					transform: scale(1.2);
+					transition: transform 0.5s;
 				}
 
 				&:hover {
-					transform: scale(1.3);
+					transform: scale(1.2);
+					transition: transform 0.5s;
+				}
+
+				&:active {
+					transform: scale(0.8);
+					transition: transform 0.5s;
 				}
 			}
 		}
