@@ -13,7 +13,7 @@
 	>
 		<img
 			class="mb-3 w-24 h-24 rounded-full shadow-lg"
-			src="https://random.imagecdn.app/150/150"
+			src="https://api.lorem.space/image/fashion?w=150&h=150"
 			alt="Bonnie image"
 		/>
 		<h2 class="text-gray-900 text-xl leading-tight font-medium mb-2">
