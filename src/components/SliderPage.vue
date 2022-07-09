@@ -1,6 +1,15 @@
 <template>
-	<div class="slider h-screen flex flex-col justify-center">
-		<div class="flex md:flex-row flex-col justify-between items-center">
+	<div class="slider flex flex-col justify-center">
+		<div
+			class="
+				flex
+				md:flex-row
+				flex-col
+				justify-between
+				items-center
+				basis-basis-1/5
+			"
+		>
 			<h1
 				class="
 					mix-blend-difference
@@ -8,6 +17,7 @@
 					font-bold
 					grow
 					text-center
+					pt-2
 				"
 			>
 				Section Cards
@@ -65,18 +75,18 @@
 				</div>
 			</div>
 		</div>
-		<div class="flex justify-center">
-		<div class="slider-cards flex flex-row items-center justify-start">
-			<SliderCard
-				class="w-60 h-80 ease-in duration-300 card shrink-0"
-				v-for="(item, index) in value"
-				:key="index"
-				:class="{ active: activeCards(index) }"
-				:item="item"
-			/>
+		<div class="flex justify-center basis-3/5">
+			<div class="slider-cards flex flex-row items-center justify-start">
+				<SliderCard
+					class="w-60 h-80 ease-in duration-300 card shrink-0"
+					v-for="(item, index) in value"
+					:key="index"
+					:class="{ active: activeCards(index) }"
+					:item="item"
+				/>
+			</div>
 		</div>
-		</div>
-		<div class="navigation-slider">
+		<div class="navigation-slider basis-basis-1/5">
 			<i
 				@click="prevCard()"
 				class="
@@ -154,11 +164,18 @@ export default {
 		},
 		setCards(index) {
 			const cards = document.querySelector(".slider-cards");
+			const mediaQuery = window.matchMedia("(min-width: 640px)");
 			this.currentIndex = index;
 
-			if (this.currentIndex < 2) {
-				cards.scrollLeft = index;
-			} else cards.scrollLeft = index * 300;
+			if (mediaQuery.matches) {
+				if (this.currentIndex < 2) {
+					cards.scrollLeft = index;
+				} else {
+					cards.scrollLeft = index * 300;
+				}
+			} else {
+				cards.scrollLeft = index * 300;
+			}
 		},
 		prevCard() {
 			const cards = document.querySelector(".slider-cards");
@@ -215,6 +232,7 @@ export default {
 <style lang="scss" scoped>
 .slider {
 	width: 90vw;
+	height: 100vh;
 	margin: 0 auto;
 	touch-action: auto;
 
@@ -310,7 +328,6 @@ export default {
 
 	.slider-cards {
 		overflow: hidden;
-		height: 500px;
 		margin: 0;
 		scroll-behavior: smooth;
 
