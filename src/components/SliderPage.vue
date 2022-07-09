@@ -30,7 +30,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="slider-cards pl-10 flex flex-row gap-14 items-center">
+		<div class="slider-cards flex flex-row gap-14 items-center">
 			<SliderCard
 				class="ease-in duration-300 card shrink-0"
 				v-for="(item, index) in value"
@@ -85,16 +85,36 @@ export default {
 			return this.currentIndex === index;
 		},
 		setCards(index) {
+			const cards = document.querySelector(".slider-cards");
 			this.currentIndex = index;
+
+			if (this.currentIndex < 2) {
+				cards.scrollLeft = index;
+			} else cards.scrollLeft = index * 320;
 		},
 		prevCard() {
 			const cards = document.querySelector(".slider-cards");
+			const lastCard = document.querySelector(
+				`.slider-cards div:nth-child(${this.currentIndex + 3}n)`
+			);
+			const prevCard = document.querySelector(
+				`.slider-cards div:nth-child(${this.currentIndex + 1}n)`
+			);
+
 			if (this.currentIndex == 0) {
 				return;
-				// this.currentIndex = this.value - 1;
 			} else {
 				this.currentIndex--;
-				cards.scrollLeft -= 290;
+
+				if (this.currentIndex < this.value - 3) {
+					cards.scrollLeft -= 600;
+				}
+
+				if (this.currentIndex > 0) {
+					lastCard.style.opacity = "0.5";
+					prevCard.style.opacity = "1";
+					console.log(lastCard.style.opacity);
+				}
 			}
 		},
 		nextCard() {
@@ -108,14 +128,13 @@ export default {
 
 			if (this.currentIndex == this.value - 1) {
 				return;
-				// this.currentIndex = 0;
 			} else {
 				this.currentIndex++;
-				cards.scrollLeft += 290;
+				if (this.currentIndex > 2) {
+					cards.scrollLeft += 400;
+				}
 
 				if (this.currentIndex < this.value - 2) {
-					this.increment++;
-					console.log(this.increment);
 					lastCard.style.opacity = "0.5";
 					prevCard.style.opacity = "1";
 					console.log(lastCard.style.opacity);
@@ -129,8 +148,7 @@ export default {
 
 <style lang="scss" scoped>
 .slider {
-	width: 90vw;
-	margin: 0 auto;
+	width: 100vw;
 
 	.input-container {
 		#color-picker {
