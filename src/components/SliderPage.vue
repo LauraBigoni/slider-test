@@ -1,9 +1,9 @@
 <template>
 	<div class="slider h-screen flex flex-col justify-center">
-		<div class="w-full flex justify-between items-center">
-			<h1 class="text-4xl pl-20 font-bold grow text-center">Section Cards</h1>
-			<div class="input-container flex justify-end gap-20 grow">
-				<div class="flex items-center basis-1/2 py-3">
+		<div class="w-full flex md:flex-row flex-col justify-between items-center">
+			<h1 class="text-4xl font-bold grow text-center">Section Cards</h1>
+			<div class="input-container flex justify-end md:gap-10 grow flex-col md:flex-row">
+				<div class="flex items-center basis-1/2 md:py-3 py-5">
 					<label for="cards-range">Number of cards:</label>
 					<input
 						type="range"
@@ -18,7 +18,7 @@
 					<output v-text="value"></output>
 				</div>
 
-				<div class="flex items-center basis-1/2 py-3">
+				<div class="flex items-center basis-1/2 md:py-3">
 					<label for="color-picker" class="pr-4">Background color:</label>
 					<input
 						type="color"
@@ -42,17 +42,31 @@
 		<div class="navigation-slider">
 			<i
 				@click="prevCard()"
-				class="fa-solid fa-arrow-left prev ease-in duration-300"
+				class="
+					invisible
+					lg:visible
+					fa-solid fa-arrow-left
+					prev
+					ease-in
+					duration-300
+				"
 				:class="{ 'opacity-50 transition-none': currentIndex == 0 }"
 			></i>
 			<i
 				@click="nextCard()"
-				class="fa-solid fa-arrow-right next ease-in duration-300"
+				class="
+					invisible
+					lg:visible
+					fa-solid fa-arrow-right
+					next
+					ease-in
+					duration-300
+				"
 				:class="{
 					'opacity-50 transition-none': currentIndex == this.value - 1,
 				}"
 			></i>
-			<div class="dots text-center">
+			<div class="dots flex flex-wrap gap-2 px-16">
 				<i
 					v-for="(icon, index) in value"
 					:key="index"
@@ -153,6 +167,7 @@ export default {
 <style lang="scss" scoped>
 .slider {
 	width: 100vw;
+	touch-action: auto;
 
 	.input-container {
 		#color-picker {
@@ -289,7 +304,6 @@ export default {
 			padding-top: 50px;
 
 			i {
-				margin: 0 10px;
 				cursor: pointer;
 				color: #b3b3b39d;
 
