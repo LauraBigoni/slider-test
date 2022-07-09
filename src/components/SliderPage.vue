@@ -1,9 +1,40 @@
 <template>
 	<div class="slider h-screen flex flex-col justify-center">
-		<div class="w-full flex md:flex-row flex-col justify-between items-center">
-			<h1 class="text-4xl font-bold grow text-center">Section Cards</h1>
-			<div class="input-container flex justify-end md:gap-10 grow flex-col md:flex-row">
-				<div class="flex items-center basis-1/2 md:py-3 py-5">
+		<div class="flex md:flex-row flex-col justify-between items-center">
+			<h1
+				class="
+					mix-blend-difference
+					text-gray-100 text-4xl
+					font-bold
+					grow
+					text-center
+				"
+			>
+				Section Cards
+			</h1>
+			<div
+				class="
+					input-container
+					flex
+					justify-end
+					md:gap-10
+					grow
+					flex-col
+					md:flex-row
+					items-center
+				"
+			>
+				<div
+					class="
+						mix-blend-difference
+						text-gray-100
+						flex
+						items-center
+						basis-1/2
+						md:py-3
+						py-5
+					"
+				>
 					<label for="cards-range">Number of cards:</label>
 					<input
 						type="range"
@@ -19,7 +50,11 @@
 				</div>
 
 				<div class="flex items-center basis-1/2 md:py-3">
-					<label for="color-picker" class="pr-4">Background color:</label>
+					<label
+						for="color-picker"
+						class="pr-4 mix-blend-difference text-gray-100"
+						>Background color:</label
+					>
 					<input
 						type="color"
 						name="color-picker"
@@ -30,7 +65,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="slider-cards flex flex-row gap-14 items-center">
+		<div class="slider-cards flex flex-row gap-14 items-center justify-start">
 			<SliderCard
 				class="ease-in duration-300 card shrink-0"
 				v-for="(item, index) in value"
@@ -66,7 +101,20 @@
 					'opacity-50 transition-none': currentIndex == this.value - 1,
 				}"
 			></i>
-			<div class="dots flex flex-wrap gap-2 px-16">
+			<div
+				class="
+					dots
+					flex
+					justify-center
+					flex-wrap
+					gap-2
+					px-5
+					pb-2
+					md:pb-0
+					mix-blend-difference
+					text-gray-100
+				"
+			>
 				<i
 					v-for="(icon, index) in value"
 					:key="index"
@@ -131,7 +179,6 @@ export default {
 				if (this.currentIndex > 0) {
 					lastCard.style.opacity = "0.5";
 					prevCard.style.opacity = "1";
-					console.log(lastCard.style.opacity);
 				}
 			}
 		},
@@ -155,7 +202,6 @@ export default {
 				if (this.currentIndex < this.value - 2) {
 					lastCard.style.opacity = "0.5";
 					prevCard.style.opacity = "1";
-					console.log(lastCard.style.opacity);
 				}
 			}
 		},
@@ -172,7 +218,7 @@ export default {
 	.input-container {
 		#color-picker {
 			padding: 0;
-			--color: #f4eae1;
+			--color: #ffffff;
 			width: 30px;
 			height: 14px;
 			position: relative;
@@ -197,7 +243,7 @@ export default {
 			position: relative;
 			background: transparent;
 			overflow: hidden;
-			color: #000;
+			color: #fff;
 			--thumb-height: 0.725em;
 			--track-height: 0.125em;
 			--track-color: rgba(0, 0, 0, 0.2);
@@ -308,7 +354,7 @@ export default {
 				color: #b3b3b39d;
 
 				&.active {
-					color: #000;
+					color: #fff;
 					transform: scale(1.2);
 					transition: transform 0.5s;
 				}
