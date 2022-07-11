@@ -55,6 +55,8 @@
 					prev
 					ease-in
 					duration-300
+					mix-blend-difference
+					text-gray-100
 				"
 				:class="{ 'opacity-50 transition-none': currentIndex == 0 }"
 			></i>
@@ -70,6 +72,8 @@
 					next
 					ease-in
 					duration-300
+					mix-blend-difference
+					text-gray-100
 				"
 				:class="{
 					'opacity-50 transition-none': currentIndex == this.value - 1,
